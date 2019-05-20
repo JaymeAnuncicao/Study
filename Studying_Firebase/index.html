@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Study</title>
+</head>
+<body>
+    <div class="container pt-5">
+        <input type="textfield" class="form-control col-4 mb-3" placeholder="Nome" id="latestName">
+        <input type="email" placeholder="E-mail" class="form-control col-4 mb-3" id="latestemail">
+        <input type="password" placeholder="password" class="form-control col-4 mb-3" id="latestpassword">
+
+        <button id="btnSave" class="btn btn-outline-success">Register</button>
+        <button id="btnLogin" class="btn btn-outline-primary">Login</button>
+        <button id="btnLogout" class="btn btn-outline-danger d-none">Logout</button>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
