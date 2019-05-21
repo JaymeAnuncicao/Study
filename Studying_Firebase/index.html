@@ -14,13 +14,38 @@
 </head>
 <body>
     <div class="container pt-5">
-        <input type="textfield" class="form-control col-4 mb-3" placeholder="Nome" id="latestName">
-        <input type="email" placeholder="E-mail" class="form-control col-4 mb-3" id="latestemail">
-        <input type="password" placeholder="password" class="form-control col-4 mb-3" id="latestpassword">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-row">
+                    <input type="textfield" class="form-control col-4 mb-3" placeholder="Nome" id="registerName">
+                    
+                </div>
+                <div class="form-row">
+                    <input type="email" placeholder="E-mail" class="form-control col-4 mb-3" id="registeremail">
+                </div>
+                <div class="form-row">
+                    <input type="password" placeholder="password" class="form-control col-4 mb-3" id="registerpassword">  
+                </div>
+                <div class="form-row">
+                    <button id="btnSave" class="btn btn-outline-success">Register</button>
+                </div>
+            </div>
+    
+            <div class="col-md-6">
+                <div class="form-row">
+                    <input type="email" placeholder="E-mail" class="form-control col-4 mb-3" id="loginmail">
+                </div>
+                <div class="form-row">
+                    <input type="password" placeholder="password" class="form-control col-4 mb-3" id="loginpassword">  
+                </div>
+                <div class="form-row">
+                    <button id="btnLogin" class="btn btn-outline-primary mr-3">Login</button>
+                    <button id="btnLogout" class="btn btn-outline-danger">Logout</button>
+                </div>
+            </div>
+        </div>
+        
 
-        <button id="btnSave" class="btn btn-outline-success">Register</button>
-        <button id="btnLogin" class="btn btn-outline-primary">Login</button>
-        <button id="btnLogout" class="btn btn-outline-danger d-none">Logout</button>
     </div>
     <script src="js/script.js"></script>
 </body>

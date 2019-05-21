@@ -13,34 +13,45 @@
     firebase.initializeApp(firebaseConfig);
     const firestore = firebase.firestore();
     
-    const docRef = firestore.doc("samples/users");
-    const txtName = document.querySelector("#latestName")
-    const txtemail = document.querySelector("#latestemail");
-    const txtpassword = document.querySelector("#latestpassword");
+    const registerName = document.querySelector("#registerName")
+    const registeremail = document.querySelector("#registeremail");
+    const registerpassword = document.querySelector("#registerpassword");
+
+    const loginName = document.querySelector("#loginName")
+    const loginemail = document.querySelector("#loginmail");
+    const loginpassword = document.querySelector("#loginpassword");
+
     const btnSave = document.querySelector("#btnSave");
     const btnLogin = document.querySelector("#btnLogin");
     const btnLogout = document.querySelector("#btnLogout");
+   
+    const docRef = firestore.collection("samples").doc();
 
 
     btnLogin.addEventListener("click", e => {
-        const email = txtemail.value;
-        const pass = txtpassword.value;
+        const remail = loginemail.value;
+        const rpass = loginpassword.value;
         const auth = firebase.auth();
-        const promise = auth.signInWithEmailAndPassword(email, pass);
+        const promise = auth.signInWithEmailAndPassword(remail, rpass);
         promise
-        .then(console.log("You are logged!"))
+        .then(
+            console.log("You are logged!") , 
+            alert(remail)
+            // window.location ="adm.html"
+        )
         .catch(e => console.log(e.message));
+        
     });
 
 
     btnSave.addEventListener("click", e => {
-        const email = txtemail.value;
-        const pass = txtpassword.value;
-        const name = txtName.value;
+        const lemail = registeremail.value;
+        const lpass = registerpassword.value;
+        const lname = registerName.value;
         docRef.set({
-            Name: name,
-            Email: email,
-            Password: pass
+            Name: lname,
+            Email: lemail,
+            Password: lpass
             
         }).then(function () {
             console.log("User saved!!");
@@ -48,7 +59,7 @@
             console.log("Got an error: ", error);
         });
         const auth = firebase.auth();
-        const promise = auth.createUserWithEmailAndPassword(email, pass);
+        const promise = auth.createUserWithEmailAndPassword(lemail, lpass);
         promise.catch(e => console.log(e.message));
     });
 
@@ -66,6 +77,15 @@
             btnLogout.classList.add("d-none")
         }
     });
+    // var user = firebase.auth().currentUser();   
+
+    // if(user){
+    //     console.log(firebaseUser);
+    //     btnLogout.classList.remove("d-none");
+    // }else{
+    //     console.log("not logged in");
+    //     btnLogout.classList.add("d-none")
+    // }
 
 
 
