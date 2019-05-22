@@ -17,35 +17,33 @@
     const registeremail = document.querySelector("#registeremail");
     const registerpassword = document.querySelector("#registerpassword");
 
-    const loginName = document.querySelector("#loginName")
-    const loginemail = document.querySelector("#loginmail");
-    const loginpassword = document.querySelector("#loginpassword");
+    // const loginName = document.querySelector("#loginName")
+    // const loginemail = document.querySelector("#loginmail");
+    // const loginpassword = document.querySelector("#loginpassword");
 
     const btnSave = document.querySelector("#btnSave");
-    const btnLogin = document.querySelector("#btnLogin");
-    const btnLogout = document.querySelector("#btnLogout");
-
-    const nameUser = document.querySelector("#userName");
+    // const btnLogin = document.querySelector("#btnLogin");
+    // const btnLogout = document.querySelector("#btnLogout");
+    var name = registerName.value;
+   
     const docRef = firestore.collection("samples").doc();
 
 
-
-    getData = function() {
-        docRef.get().then(
-            function (doc){
-                if(doc && doc.exists){
-                    const docData = doc.data();
-                    nameUser.innerHTML = "Welcome: "+docData.remail;
-                }
-            }
-        ).catch(
-            function(error){
-                console.log("Got a error on print: ", error);
-            }
-        );
-    }
-
-    
+    // btnLogin.addEventListener("click", e => {
+    //     const remail = loginemail.value;
+    //     const rpass = loginpassword.value;
+    //     // const rname = loginName.value;
+    //     const auth = firebase.auth();
+    //     const promise = auth.signInWithEmailAndPassword(remail, rpass);
+    //     promise
+    //     .then(
+    //         console.log("You are logged!") , 
+    //         alert(rpass)
+    //         // window.location ="adm.html"
+    //     )
+    //     .catch(e => console.log(e.message));
+        
+    // });
 
 
     btnSave.addEventListener("click", e => {
@@ -67,40 +65,20 @@
         promise.catch(e => console.log(e.message));
     });
 
-    btnLogin.addEventListener("click", e => {
-        const remail = loginemail.value;
-        const rpass = loginpassword.value;
-        // const rname = loginName.value;
-        const auth = firebase.auth();
-        const promise = auth.signInWithEmailAndPassword(remail, rpass);
-        promise
-        .then(
-            console.log("You are logged!") , 
-            nameUser.innerHTML = "Welcome: "+remail
-            // window.location ="adm.html"
-        )
-        .catch(e => console.log(e.message));
-        
-        
-    });
-    btnLogout.addEventListener("click", e=> {
-        firebase.auth().signOut();
-        nameUser.innerHTML = ""
-    });
+    // btnLogout.addEventListener("click", e=> {
+    //     firebase.auth().signOut();
+    // });
 
 
-    firebase.auth().onAuthStateChanged(firebaseUser =>{
-        if(firebaseUser){
-            console.log(firebaseUser);
-            btnLogout.classList.remove("d-none");
-        }else{
-            console.log("not logged in");
-            btnLogout.classList.add("d-none")
-        }
-    });
-
-
-    
+    // firebase.auth().onAuthStateChanged(firebaseUser =>{
+    //     if(firebaseUser){
+    //         console.log(firebaseUser);
+    //         btnLogout.classList.remove("d-none");
+    //     }else{
+    //         console.log("not logged in");
+    //         btnLogout.classList.add("d-none")
+    //     }
+    // });
     // var user = firebase.auth().currentUser();   
 
     // if(user){
@@ -115,5 +93,3 @@
 
 
 }());
-
-

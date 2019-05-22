@@ -13,59 +13,20 @@
     firebase.initializeApp(firebaseConfig);
     const firestore = firebase.firestore();
     
-    const registerName = document.querySelector("#registerName")
-    const registeremail = document.querySelector("#registeremail");
-    const registerpassword = document.querySelector("#registerpassword");
+    // const registerName = document.querySelector("#registerName")
+    // const registeremail = document.querySelector("#registeremail");
+    // const registerpassword = document.querySelector("#registerpassword");
 
-    const loginName = document.querySelector("#loginName")
+    // const loginName = document.querySelector("#loginName")
     const loginemail = document.querySelector("#loginmail");
     const loginpassword = document.querySelector("#loginpassword");
 
-    const btnSave = document.querySelector("#btnSave");
+    // const btnSave = document.querySelector("#btnSave");
     const btnLogin = document.querySelector("#btnLogin");
     const btnLogout = document.querySelector("#btnLogout");
+   
+    // const docRef = firestore.collection("samples").doc();
 
-    const nameUser = document.querySelector("#userName");
-    const docRef = firestore.collection("samples").doc();
-
-
-
-    getData = function() {
-        docRef.get().then(
-            function (doc){
-                if(doc && doc.exists){
-                    const docData = doc.data();
-                    nameUser.innerHTML = "Welcome: "+docData.remail;
-                }
-            }
-        ).catch(
-            function(error){
-                console.log("Got a error on print: ", error);
-            }
-        );
-    }
-
-    
-
-
-    btnSave.addEventListener("click", e => {
-        const lemail = registeremail.value;
-        const lpass = registerpassword.value;
-        const lname = registerName.value;
-        docRef.set({
-            Name: lname,
-            Email: lemail,
-            Password: lpass
-            
-        }).then(function () {
-            console.log("User saved!!");
-        }).catch(function (error) {
-            console.log("Got an error: ", error);
-        });
-        const auth = firebase.auth();
-        const promise = auth.createUserWithEmailAndPassword(lemail, lpass);
-        promise.catch(e => console.log(e.message));
-    });
 
     btnLogin.addEventListener("click", e => {
         const remail = loginemail.value;
@@ -76,16 +37,35 @@
         promise
         .then(
             console.log("You are logged!") , 
-            nameUser.innerHTML = "Welcome: "+remail
+            alert(rpass)
             // window.location ="adm.html"
         )
         .catch(e => console.log(e.message));
         
-        
     });
+
+
+    // btnSave.addEventListener("click", e => {
+    //     const lemail = registeremail.value;
+    //     const lpass = registerpassword.value;
+    //     const lname = registerName.value;
+    //     docRef.set({
+    //         Name: lname,
+    //         Email: lemail,
+    //         Password: lpass
+            
+    //     }).then(function () {
+    //         console.log("User saved!!");
+    //     }).catch(function (error) {
+    //         console.log("Got an error: ", error);
+    //     });
+    //     const auth = firebase.auth();
+    //     const promise = auth.createUserWithEmailAndPassword(lemail, lpass);
+    //     promise.catch(e => console.log(e.message));
+    // });
+
     btnLogout.addEventListener("click", e=> {
         firebase.auth().signOut();
-        nameUser.innerHTML = ""
     });
 
 
@@ -98,9 +78,6 @@
             btnLogout.classList.add("d-none")
         }
     });
-
-
-    
     // var user = firebase.auth().currentUser();   
 
     // if(user){
@@ -115,5 +92,3 @@
 
 
 }());
-
-
