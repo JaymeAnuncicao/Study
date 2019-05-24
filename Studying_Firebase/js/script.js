@@ -1,6 +1,10 @@
 (function () {
 
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // var Lemail = document.querySelector("#loginmail").value;
+    // var Lpass = document.querySelector("#loginpassword").value;
+    // const btnLogin = document.querySelector("#btnLogin");
+    // const promise  = firebase.auth();
     
     var uiConfig = {
         callbacks: {
@@ -27,6 +31,13 @@
         //   firebase.auth.GithubAuthProvider.PROVIDER_ID,
         //   firebase.auth.PhoneAuthProvider.PROVIDER_ID
           firebase.auth.EmailAuthProvider.PROVIDER_ID
+          // btnLogin.addEventListener("click", e =>{
+          //   promise.signInWithEmailAndPassword(Lemail, Lpass).then(
+          //     function() {
+          //       console.log("Login done!!")
+          //     }
+          //   ).catch( e => console.log(e.message)) 
+          // })
         ],
         // Terms of service url.
         tosUrl: './adm.html',
