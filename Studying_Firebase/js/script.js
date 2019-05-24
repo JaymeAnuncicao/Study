@@ -1,117 +1,39 @@
 (function () {
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-        apiKey: "AIzaSyByLAxX2J-c4RkbBQmMIwTxCXKSFMV9wlc",
-        authDomain: "teste-mei.firebaseapp.com",
-        databaseURL: "https://teste-mei.firebaseio.com",
-        projectId: "teste-mei",
-        storageBucket: "teste-mei.appspot.com",
-        messagingSenderId: "252021094868",
-        appId: "1:252021094868:web:bbe8d510f990b383"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const firestore = firebase.firestore();
+
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
     
-    const registerName = document.querySelector("#registerName")
-    const registeremail = document.querySelector("#registeremail");
-    const registerpassword = document.querySelector("#registerpassword");
-
-    const loginName = document.querySelector("#loginName")
-    const loginemail = document.querySelector("#loginmail");
-    const loginpassword = document.querySelector("#loginpassword");
-
-    const btnSave = document.querySelector("#btnSave");
-    const btnLogin = document.querySelector("#btnLogin");
-    const btnLogout = document.querySelector("#btnLogout");
-
-    const nameUser = document.querySelector("#userName");
-    const docRef = firestore.collection("samples").doc();
-
-
-
-    getData = function() {
-        docRef.get().then(
-            function (doc){
-                if(doc && doc.exists){
-                    const docData = doc.data();
-                    nameUser.innerHTML = "Welcome: "+docData.remail;
-                }
-            }
-        ).catch(
-            function(error){
-                console.log("Got a error on print: ", error);
-            }
-        );
-    }
-
-    
-
-
-    btnSave.addEventListener("click", e => {
-        const lemail = registeremail.value;
-        const lpass = registerpassword.value;
-        const lname = registerName.value;
-        docRef.set({
-            Name: lname,
-            Email: lemail,
-            Password: lpass
-            
-        }).then(function () {
-            console.log("User saved!!");
-        }).catch(function (error) {
-            console.log("Got an error: ", error);
-        });
-        const auth = firebase.auth();
-        const promise = auth.createUserWithEmailAndPassword(lemail, lpass);
-        promise.catch(e => console.log(e.message));
-    });
-
-    btnLogin.addEventListener("click", e => {
-        const remail = loginemail.value;
-        const rpass = loginpassword.value;
-        // const rname = loginName.value;
-        const auth = firebase.auth();
-        const promise = auth.signInWithEmailAndPassword(remail, rpass);
-        promise
-        .then(
-            console.log("You are logged!") , 
-            nameUser.innerHTML = "Welcome: "+remail
-            // window.location ="adm.html"
-        )
-        .catch(e => console.log(e.message));
-        
-        
-    });
-    btnLogout.addEventListener("click", e=> {
-        firebase.auth().signOut();
-        nameUser.innerHTML = ""
-    });
-
-
-    firebase.auth().onAuthStateChanged(firebaseUser =>{
-        if(firebaseUser){
-            console.log(firebaseUser);
-            btnLogout.classList.remove("d-none");
-        }else{
-            console.log("not logged in");
-            btnLogout.classList.add("d-none")
-        }
-    });
-
-
-    
-    // var user = firebase.auth().currentUser();   
-
-    // if(user){
-    //     console.log(firebaseUser);
-    //     btnLogout.classList.remove("d-none");
-    // }else{
-    //     console.log("not logged in");
-    //     btnLogout.classList.add("d-none")
-    // }
-
-
+    var uiConfig = {
+        callbacks: {
+          signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+            // User successfully signed in.
+            // Return type determines whether we continue the redirect automatically
+            // or whether we leave that to developer to handle.
+            return true;
+          },
+          uiShown: function() {
+            // The widget is rendered.
+            // Hide the loader.
+            document.getElementById('loader').style.display = 'none';
+          }
+        },
+        // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+        signInFlow: 'popup',
+        signInSuccessUrl: './adm.html',
+        signInOptions: [
+        //   // Leave the lines as is for the providers you want to offer your users.
+        //   firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        //   firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        //   firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+        //   firebase.auth.GithubAuthProvider.PROVIDER_ID,
+        //   firebase.auth.PhoneAuthProvider.PROVIDER_ID
+          firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        // Terms of service url.
+        tosUrl: './adm.html',
+        // Privacy policy url.
+        // privacyPolicyUrl: '<your-privacy-policy-url>'
+      };
+      ui.start('#firebaseui-auth-container', uiConfig);
 
 
 }());
